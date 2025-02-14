@@ -12,6 +12,15 @@ module "aci_apic_connectivity_preference" {
   interface_preference = try(local.fabric_policies.apic_conn_pref, local.defaults.apic.fabric_policies.apic_conn_pref)
 }
 
+module "atomic-counter" {
+  source = "./modules/terraform-aci-atomic-counter"
+
+  admin_state             = try(group.admin_state, local.defaults.apic.fabric_policies.atomic_conter.admin_state)
+  name                    = value.name
+  mode                    = value.mode
+  description             = value.description
+}
+
 module "aci_banner" {
   source = "./modules/terraform-aci-banner"
 
